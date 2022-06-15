@@ -1,0 +1,47 @@
+# 1. Проанализировать скорость и сложность одного любого алгоритма, разработанных в рамках домашнего задания первых трех уроков.
+# Примечание: попробуйте написать несколько реализаций алгоритма и сравнить их.
+import time
+import cProfile
+
+array = [-103, -999, -6, 8000, 933, 6] #list(map(int, input('Введите элементы массива (числа) через пробел  ').split(' ')))
+begin_1 = time.perf_counter()
+def func():
+    return print((f' Максимальный отрицательный элемент равен  {array[array.index(max([i for i in array if i < 0]))]}, '
+        f'а его позиция в массиве равна {array.index(max([i for i in array if i < 0])) + 1}'))
+end_1 = time.perf_counter()
+print('Выполнено за  ', end_1 - begin_1)    #Выполнено за 3.770000000000162e-05
+
+
+begin_2 = time.perf_counter()
+def func_2():
+    ind = 0
+    res = int(min(array))
+    for i in array:
+        ind += 1
+        if i < 0 and i > res:
+            res = i
+            res_ind = ind
+    return print(f' Максимальный отрицательный элемент равен  {res}, '
+          f'а его позиция в массиве равна {res_ind}')
+end_2 = time.perf_counter()
+print('Выполнено за  ', end_2 - begin_2)  #Выполнено за 1.2100000000000999e-05
+
+
+begin_3 = time.perf_counter()
+def func_3():
+    res = max([i for i in array if i < 0])
+    res_ind = array.index(res)
+    return print(f' Максимальный отрицательный элемент равен  {res}, '
+       f'а его позиция в массиве равна {res_ind}')
+end_3 = time.perf_counter()
+print('Выполнено за  ', end_3 - begin_3)  #Выполнено за 1.0099999999998999e-05
+
+# cProfile.run('main()')
+# 3 function calls in 0.000 seconds
+#
+#    Ordered by: standard name
+#
+#    ncalls  tottime  percall  cumtime  percall filename:lineno(function)
+#         1    0.000    0.000    0.000    0.000 <string>:1(<module>)
+#         1    0.000    0.000    0.000    0.000 {built-in method builtins.exec}
+#         1    0.000    0.000    0.000    0.000 {method 'disable' of '_lsprof.Profiler' objects}
