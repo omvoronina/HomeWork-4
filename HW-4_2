@@ -1,0 +1,47 @@
+# 2. Написать два алгоритма нахождения i-го по счёту простого числа.
+# Без использования «Решета Эратосфена»;
+# Используя алгоритм «Решето Эратосфена»
+# Примечание ко всему домашнему заданию: Проанализировать скорость и сложность алгоритмов.
+# Результаты анализа сохранить в виде комментариев в файле с кодом.
+import time
+import cProfile
+
+
+begin_1 = time.perf_counter()
+def func():
+    n = 2
+    while 1:
+        n += 1
+        for j in range(2, n):
+            if n % j == 0:
+                break
+            elif j == n - 1:
+                yield n
+f = func()
+i = int(input('Введите число  '))
+for j in range(i):
+    res = next(f)
+end_1 = time.perf_counter()
+print(res, 'Выполнено за  ', end_1 - begin_1)  # Выполнено за   3.2430922, 1.7197879
+
+
+begin_2 = time.perf_counter()
+y = int(input('Введите число  '))
+n = 2
+array = [0]
+while len(array) <= y:
+    array = [x for x in range(2, n + 1) if
+         x not in [i for sub in [list(range(2 * j, n + 1, j)) for j in range(2, n // 2)] for i in sub]]
+    n += 1
+end_2 = time.perf_counter()
+print(array[-1], 'Выполнено за  ', end_2 - begin_2)  # Выполнено за   2.1215514, 1.2467242000000003
+
+# cProfile.run('main()')
+# 3 function calls in 0.001 seconds
+#
+#    Ordered by: standard name
+#
+#    ncalls  tottime  percall  cumtime  percall filename:lineno(function)
+#         1    0.000    0.000    0.000    0.000 <string>:1(<module>)
+#         1    0.001    0.001    0.001    0.001 {built-in method builtins.exec}
+#         1    0.000    0.000    0.000    0.000 {method 'disable' of '_lsprof.Profiler' objects}
